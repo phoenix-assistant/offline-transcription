@@ -1,0 +1,59 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "airscribe"
+version = "0.1.0"
+description = "Enterprise offline speech-to-text for air-gapped environments"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.9"
+authors = [{ name = "Phoenix Assistant" }]
+keywords = ["transcription", "whisper", "speech-to-text", "offline", "enterprise", "diarization"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Topic :: Multimedia :: Sound/Audio :: Speech",
+]
+
+dependencies = [
+    "faster-whisper>=1.0.0",
+    "pyannote.audio>=3.1.0",
+    "fastapi>=0.110.0",
+    "uvicorn[standard]>=0.27.0",
+    "python-multipart>=0.0.9",
+    "click>=8.1.0",
+    "rich>=13.0.0",
+    "pydub>=0.25.1",
+    "torch>=2.0.0",
+    "torchaudio>=2.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.23.0",
+    "httpx>=0.27.0",
+    "ruff>=0.3.0",
+]
+
+[project.scripts]
+airscribe = "airscribe.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/phoenix-assistant/offline-transcription"
+Repository = "https://github.com/phoenix-assistant/offline-transcription"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/airscribe"]
+
+[tool.ruff]
+target-version = "py39"
+line-length = 100
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
